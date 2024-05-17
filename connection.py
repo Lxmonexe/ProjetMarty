@@ -1,10 +1,11 @@
 from martypy import Marty
 
 
-def connect(marty):
-    marty = Marty("wifi", "192.168.0.100")
+def connect(wifi, ip):
+    marty = Marty(wifi, ip)
     print("Connected to Marty!")
+    return marty
 
 def disconnect(marty):
-    marty = Marty.close()
+    marty.close()
     print("Disconnected from Marty!")
