@@ -223,14 +223,14 @@ class Ui_MainWindow:
 
     def backward_button_pressed(self):
         if(isConnect(MARTY)):
-            backward(MARTY)
+            excited(MARTY)
         else:
             print("You need to be connected !")
         
 
     def forward_button_pressed(self):
         if(isConnect(MARTY)):
-            toward(MARTY)
+            angry(MARTY)
         else:
             print("You need to be connected !")
      
