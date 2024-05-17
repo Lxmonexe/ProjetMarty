@@ -11,3 +11,8 @@ def excited(marty):
     time.sleep(1)
     marty.eyes("normal",1000)
 
+def celebrate(marty):
+    marty.celebrate()
+
+def dance(marty):
+    marty.dance()
