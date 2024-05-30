@@ -5,7 +5,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from PyQt6 import QtCore
 import sys
-from martypy import Marty
+import keyboard
 from PyQt6.QtWidgets import (
     QMainWindow,
     QApplication,
@@ -17,29 +17,32 @@ from PyQt6.QtWidgets import (
     QSlider,
     QStatusBar
 )
-
-
+MARTY: Marty 
 class Ui_MainWindow:
+
     ipAddress = "192.168.0.101"
+
     state = "test"
+    kstate = "ktest"
+    emotion = "etest"
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
             MainWindow.setObjectName("MainWindow")
-            
-        MainWindow.resize(1030, 711)
+
+        MainWindow.resize(1536, 793)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
         #Bouton arrière
         self.Backward_icon = QLabel(self.centralwidget)
         self.Backward_icon.setObjectName("Backward_icon")
-        self.Backward_icon.setGeometry(110, 560, 101, 101)
+        self.Backward_icon.setGeometry(110, MainWindow.size().height()-140, 100, 100)
         self.Backward_icon.setPixmap(QPixmap("./Interface/bas.png"))
         self.Backward_icon.setScaledContents(True)
 
         self.Backward = QPushButton(self.centralwidget)
         self.Backward.setObjectName("Backward")
-        self.Backward.setGeometry(110, 560, 101, 101)
+        self.Backward.setGeometry(110, MainWindow.size().height()-140, 100, 100)
         self.Backward.setFlat(True)
         self.Backward.pressed.connect(self.backward_button_pressed)
         self.Backward.released.connect(self.backward_button_released)
@@ -47,13 +50,13 @@ class Ui_MainWindow:
         #Bouton avant
         self.Forward_icon = QLabel(self.centralwidget)
         self.Forward_icon.setObjectName("Forward_icon")
-        self.Forward_icon.setGeometry(110, 360, 101, 101)
+        self.Forward_icon.setGeometry(110, MainWindow.size().height()-340, 100, 100)
         self.Forward_icon.setPixmap(QPixmap("./Interface/haut.png"))
         self.Forward_icon.setScaledContents(True)
 
         self.Forward = QPushButton(self.centralwidget)
         self.Forward.setObjectName("Forward")
-        self.Forward.setGeometry(110, 360, 101, 101)
+        self.Forward.setGeometry(110, MainWindow.size().height()-340, 100, 100)
         self.Forward.setFlat(True)
         self.Forward.pressed.connect(self.forward_button_pressed)
         self.Forward.released.connect(self.forward_button_released)
@@ -61,13 +64,13 @@ class Ui_MainWindow:
         #Bouton Gauche
         self.Left_icon = QLabel(self.centralwidget)
         self.Left_icon.setObjectName("Left_icon")
-        self.Left_icon.setGeometry(10, 460, 101, 101)
+        self.Left_icon.setGeometry(10, MainWindow.size().height()-240, 100, 100)
         self.Left_icon.setPixmap(QPixmap("./Interface/gauche.png"))
         self.Left_icon.setScaledContents(True)
 
         self.Left = QPushButton(self.centralwidget)
         self.Left.setObjectName("Left")
-        self.Left.setGeometry(10, 460, 101, 101)
+        self.Left.setGeometry(10, MainWindow.size().height()-240, 100, 100)
         self.Left.setFlat(True)
         self.Left.pressed.connect(self.left_button_pressed)
         self.Left.released.connect(self.left_button_released)
@@ -75,16 +78,42 @@ class Ui_MainWindow:
         #Bouton Droite
         self.Right_icon = QLabel(self.centralwidget)
         self.Right_icon.setObjectName("Right_icon")
-        self.Right_icon.setGeometry(210, 460, 101, 101)
+        self.Right_icon.setGeometry(210, MainWindow.size().height()-240, 100, 100)
         self.Right_icon.setPixmap(QPixmap("./Interface/droite.png"))
         self.Right_icon.setScaledContents(True)
 
         self.Right = QPushButton(self.centralwidget)
         self.Right.setObjectName("Right")
-        self.Right.setGeometry(210, 460, 101, 101)
+        self.Right.setGeometry(210, MainWindow.size().height()-240, 100, 100)
         self.Right.setFlat(True)
         self.Right.pressed.connect(self.right_button_pressed)
         self.Right.released.connect(self.right_button_released)
+
+        #Bouton angry
+        self.Angry_icon = QLabel(self.centralwidget)
+        self.Angry_icon.setObjectName("Right_icon")
+        self.Angry_icon.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
+        self.Angry_icon.setPixmap(QPixmap("./Interface/angry.jpg"))
+        self.Angry_icon.setScaledContents(True)
+
+        self.Angry = QPushButton(self.centralwidget)
+        self.Angry.setObjectName("Right")
+        self.Angry.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
+        self.Angry.setFlat(True)
+        self.Angry.clicked.connect(self.angry_button_clicked)
+
+        #Bouton excited
+        self.Excited_icon = QLabel(self.centralwidget)
+        self.Excited_icon.setObjectName("Right_icon")
+        self.Excited_icon.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
+        self.Excited_icon.setPixmap(QPixmap("./Interface/excited.png"))
+        self.Excited_icon.setScaledContents(True)
+
+        self.Excited = QPushButton(self.centralwidget)
+        self.Excited.setObjectName("Right")
+        self.Excited.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
+        self.Excited.setFlat(True)
+        self.Excited.clicked.connect(self.excited_button_clicked)
 
         #Bouton automatique
         self.Auto = QPushButton(self.centralwidget)
@@ -117,14 +146,13 @@ class Ui_MainWindow:
         self.Deconnexion.setGeometry(120, 10, 101, 101)
         self.Deconnexion.setFlat(True)
         self.Deconnexion.clicked.connect(self.deconnexion_button_clicked)
-
         #Bouton Dance
         self.Dance = QPushButton(self.centralwidget)
         self.Dance.setObjectName("Dance")
-        self.Dance.setGeometry(910, 10, 101, 101)
+        self.Dance.setGeometry(110, MainWindow.size().height()-240, 100, 100)
         self.Dance.pressed.connect(self.dance_button_pressed)
         self.Dance.released.connect(self.dance_button_released)
-        
+
         #Curseur de vitesse
         self.CurseurVitesse = QSlider(self.centralwidget)
         self.CurseurVitesse.setObjectName("CurseurVitesse")
@@ -134,11 +162,11 @@ class Ui_MainWindow:
         self.CurseurVitesse.setSingleStep(1)
         self.CurseurVitesse.setSliderPosition(1500)
         self.CurseurVitesse.setOrientation(Qt.Orientation.Horizontal)
-        
+
         #Barre de batterie
         self.Battery = QProgressBar(self.centralwidget)
         self.Battery.setObjectName("Batterie")
-        self.Battery.setGeometry(QtCore.QRect(850, 650, 118, 23))
+        self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))
         self.Battery.setValue(50)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -161,7 +189,7 @@ class Ui_MainWindow:
         self.Dance.setText(QApplication.translate("MainWindow", "Dance", None))
         self.Connexion.setText(QApplication.translate("MainWindow", "", None))
         self.Deconnexion.setText(QApplication.translate("MainWindow", "", None))
-    
+
     def backward_button_pressed(self):
         self.state = "backward"
 
@@ -176,21 +204,28 @@ class Ui_MainWindow:
 
     def left_button_pressed(self):
         self.state = "left"
-        
+
     def left_button_released(self):
         self.state = "idle"
 
     def right_button_pressed(self):
         self.state = "right"
-    
+
     def right_button_released(self):
         self.state = "idle"
+
+    def angry_button_clicked(self):
+        self.emotion = "angry"
+
+    def excited_button_clicked(self):
+        self.emotion = "excited"
 
     def auto_button_clicked(self):
         print("Auto button clicked")
 
     def connexion_button_clicked(self):
         global MARTY 
+
         MARTY = connect("wifi", self.ipAddress)
         
     def deconnexion_button_clicked(self):
@@ -198,22 +233,62 @@ class Ui_MainWindow:
 
     def dance_button_pressed(self):
         self.state = "dance"
-    
+
     def dance_button_released(self):
         self.state = "idle"
 
-    def action(self):
-         #if(isConnect(MARTY)):
-            print(self.CurseurVitesse.value()) #☻Pour récupérer la valeur du curseur quand vous voulez changer la vitesse
-            if self.state == "idle":
-                stop(MARTY)
+    def keyboard(self):
+        if keyboard.is_pressed('z') and self.kstate == "idle": 
+            self.kstate = "forward"
+        elif keyboard.is_pressed('s') and self.kstate == "idle": 
+            self.kstate = "backward"
+        elif keyboard.is_pressed('q') and self.kstate == "idle": 
+            self.kstate = "left"
+        elif keyboard.is_pressed('d') and self.kstate == "idle": 
+            self.kstate = "right"
+        else:
+            self.kstate = "idle"
 
-            if self.state == "forward":
-                #print("forward")
-                toward(MARTY, self.CurseurVitesse.value())
-            if self.state == "backward":
-                #print("backward")
-                backward(MARTY, self.CurseurVitesse.value())
+    def resize(self):
+        self.Backward_icon.setGeometry(110, MainWindow.size().height()-140, 100, 100)
+        self.Backward.setGeometry(110, MainWindow.size().height()-140, 100, 100)
+
+        self.Forward_icon.setGeometry(110, MainWindow.size().height()-340, 100, 100)
+        self.Forward.setGeometry(110, MainWindow.size().height()-340, 100, 100)
+
+        self.Left_icon.setGeometry(10, MainWindow.size().height()-240, 100, 100)
+        self.Left.setGeometry(10, MainWindow.size().height()-240, 100, 100)
+
+        self.Right_icon.setGeometry(210, MainWindow.size().height()-240, 100, 100)
+        self.Right.setGeometry(210, MainWindow.size().height()-240, 100, 100)
+
+        self.Angry_icon.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
+        self.Angry.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
+        
+        self.Excited_icon.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
+        self.Excited.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
+
+        self.Dance.setGeometry(110, MainWindow.size().height()-240, 100, 100)
+        self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))    
+
+    def emotion_state(self):
+        if self.emotion == "angry":
+            angry(MARTY)
+        elif self.emotion == "excited":
+            excited(MARTY)
+
+    def action(self):
+        # if(isConnect(MARTY)):
+        print(self.CurseurVitesse.value()) #☻Pour récupérer la valeur du curseur quand vous voulez changer la vitesse
+        if self.state == "idle":
+            stop(MARTY)
+
+        if self.state == "forward":
+            #print("forward")
+            toward(MARTY, self.CurseurVitesse.value())
+        if self.state == "backward":
+            #print("backward")
+            backward(MARTY, self.CurseurVitesse.value())
             if self.state == "left":
                 #print("left")
                 left(MARTY, self.CurseurVitesse.value())
@@ -225,5 +300,4 @@ class Ui_MainWindow:
                 dance(MARTY)
             #else:
              #print("You need to be connected !")
-
 
