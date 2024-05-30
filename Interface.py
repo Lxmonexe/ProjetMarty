@@ -20,7 +20,7 @@ from PyQt6.QtWidgets import (
 
 
 class Ui_MainWindow:
-    
+    ipAddress = "192.168.0.101"
     state = "test"
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
@@ -191,7 +191,7 @@ class Ui_MainWindow:
 
     def connexion_button_clicked(self):
         global MARTY 
-        MARTY = connect("wifi","192.168.0.101")
+        MARTY = connect("wifi", self.ipAddress)
         
     def deconnexion_button_clicked(self):
         disconnect(MARTY)
@@ -226,16 +226,4 @@ class Ui_MainWindow:
             #else:
              #print("You need to be connected !")
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    MainWindow = QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    timer = QtCore.QTimer()
-    timer.timeout.connect(ui.action)
-    timer.start(2000) #CHANGER MILLISECONDE APPELER FONCTION DEPLACMENT
-    sys.exit(app.exec())
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec())
+
