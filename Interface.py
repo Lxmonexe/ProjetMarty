@@ -225,7 +225,6 @@ class Ui_MainWindow:
 
     def connexion_button_clicked(self):
         global MARTY 
-
         MARTY = connect("wifi", self.ipAddress)
         
     def deconnexion_button_clicked(self):
@@ -240,6 +239,7 @@ class Ui_MainWindow:
     def keyboard(self):
         if keyboard.is_pressed('z') and self.kstate == "idle": 
             self.kstate = "forward"
+            toward(MARTY, self.CurseurVitesse.value())
         elif keyboard.is_pressed('s') and self.kstate == "idle": 
             self.kstate = "backward"
         elif keyboard.is_pressed('q') and self.kstate == "idle": 
@@ -300,4 +300,20 @@ class Ui_MainWindow:
                 dance(MARTY)
             #else:
              #print("You need to be connected !")
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    MainWindow = QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    timerMove = QtCore.QTimer()
+    timerResize = QtCore.QTimer()
+    timerMove.timeout.connect(ui.action)
+    timerMove.timeout.connect(ui.keyboard)
+    timerMove.timeout.connect(ui.emotion_state)
+    timerResize.timeout.connect(ui.resize)
+    timerMove.start(100)  #CHANGER MILLISECONDE APPELER FONCTION DEPLACMENT
+    timerResize.start(5)
+    sys.exit(app.exec())
 
