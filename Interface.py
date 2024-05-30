@@ -19,6 +19,9 @@ from PyQt6.QtWidgets import (
 )
 MARTY: Marty 
 class Ui_MainWindow:
+
+    ipAddress = "192.168.0.101"
+
     state = "test"
     kstate = "ktest"
     emotion = "etest"
@@ -222,8 +225,9 @@ class Ui_MainWindow:
 
     def connexion_button_clicked(self):
         global MARTY 
-        MARTY = connect("wifi","192.168.0.101")
 
+        MARTY = connect("wifi", self.ipAddress)
+        
     def deconnexion_button_clicked(self):
         disconnect(MARTY)
 
@@ -275,39 +279,25 @@ class Ui_MainWindow:
 
     def action(self):
         # if(isConnect(MARTY)):
-            print(self.CurseurVitesse.value()) #☻Pour récupérer la valeur du curseur quand vous voulez changer la vitesse
-            if self.state == "idle" and self.kstate == "idle":
-                print("idle")
-            if self.state == "forward" or self.kstate == "forward":
-                print("forward")
-                #     angry(MARTY)
-            if self.state == "backward" or self.kstate == "backward":
-                print("backward")
-                #     excited(MARTY)
-            if self.state == "left" or self.kstate == "left":
-                print("left")
-                #left(MARTY)
-            if self.state == "right" or self.kstate == "right":
-                print("right")
-                #right(MARTY)
-            if self.state == "dance" or self.kstate == "dance":
-                print("dance")
-                #dance(MARTY)
-        # else:
-        #     print("You need to be connected !")
+        print(self.CurseurVitesse.value()) #☻Pour récupérer la valeur du curseur quand vous voulez changer la vitesse
+        if self.state == "idle":
+            stop(MARTY)
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    MainWindow = QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    timerMove = QtCore.QTimer()
-    timerResize = QtCore.QTimer()
-    timerMove.timeout.connect(ui.action)
-    timerMove.timeout.connect(ui.keyboard)
-    timerMove.timeout.connect(ui.emotion_state)
-    timerResize.timeout.connect(ui.resize)
-    timerMove.start(100)  #CHANGER MILLISECONDE APPELER FONCTION DEPLACMENT
-    timerResize.start(5)
-    sys.exit(app.exec())
+        if self.state == "forward":
+            #print("forward")
+            toward(MARTY, self.CurseurVitesse.value())
+        if self.state == "backward":
+            #print("backward")
+            backward(MARTY, self.CurseurVitesse.value())
+            if self.state == "left":
+                #print("left")
+                left(MARTY, self.CurseurVitesse.value())
+            if self.state == "right":
+                #print("right")
+                right(MARTY, self.CurseurVitesse.value())
+            if self.state == "dance":
+                #print("dance")
+                dance(MARTY)
+            #else:
+             #print("You need to be connected !")
+
