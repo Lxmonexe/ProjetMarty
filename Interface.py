@@ -4,6 +4,7 @@ from emotion import *
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from PyQt6 import QtCore
+jaune_pale = "#FEEFAD"
 import sys
 import keyboard
 from PyQt6.QtWidgets import (
@@ -18,6 +19,7 @@ from PyQt6.QtWidgets import (
     QStatusBar
 )
 MARTY: Marty 
+
 class Ui_MainWindow:
     state = "test"
     kstate = "ktest"
@@ -25,7 +27,10 @@ class Ui_MainWindow:
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
             MainWindow.setObjectName("MainWindow")
-
+        MainWindow.setStyleSheet("background-color: #FEEFAD;") #jaune pale
+        MainWindow.setStyleSheet("background-color: #FDDE55;") #jaune chaud
+        MainWindow.setStyleSheet("background-color: #68D2E8;") #bleu cyan
+        MainWindow.setStyleSheet("background-color: #03AED2;") #bleu mer
         MainWindow.resize(1536, 793)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -115,6 +120,7 @@ class Ui_MainWindow:
         #Bouton automatique
         self.Auto = QPushButton(self.centralwidget)
         self.Auto.setObjectName("Auto")
+        self.Auto.setStyleSheet("background-color: #68D2E8;") #jaune chaud
         self.Auto.setGeometry(40, 120, 158, 23)
         self.Auto.clicked.connect(self.auto_button_clicked)
 
@@ -159,12 +165,14 @@ class Ui_MainWindow:
         self.CurseurVitesse.setSingleStep(1)
         self.CurseurVitesse.setSliderPosition(1500)
         self.CurseurVitesse.setOrientation(Qt.Orientation.Horizontal)
+        self.CurseurVitesse.setStyleSheet("QSlider::handle:horizontal {width: 15;border-radius: 5px; margin: -8px; background-color: #FEEFAD; } QSlider::groove:horizontal {border: 2px solid #FEEFAD; height: 1px; background-color: #FEEFAD; } QSlider:add-page:horizontal {background-color: #68D2E8;}")
 
         #Barre de batterie
         self.Battery = QProgressBar(self.centralwidget)
         self.Battery.setObjectName("Batterie")
         self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))
         self.Battery.setValue(50)
+        self.Battery.setStyleSheet("QProgressBar {border: 2px solid #FEEFAD; border-radius: 0px #FEEFAD; text-align: center; text-color: #FEEFAD} QProgressBar::chunk {width: 10px; background-color: #FEEFAD; width: 20px;}")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.menubar = QMenuBar(MainWindow)
@@ -268,14 +276,16 @@ class Ui_MainWindow:
         self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))    
 
     def emotion_state(self):
+        print(self.emotion)
         if self.emotion == "angry":
             angry(MARTY)
         elif self.emotion == "excited":
             excited(MARTY)
 
     def action(self):
+            
         # if(isConnect(MARTY)):
-            print(self.CurseurVitesse.value()) #☻Pour récupérer la valeur du curseur quand vous voulez changer la vitesse
+            # print(self.CurseurVitesse.value()) ☻Pour récupérer la valeur du curseur quand vous voulez changer la vitesse
             if self.state == "idle" and self.kstate == "idle":
                 print("idle")
             if self.state == "forward" or self.kstate == "forward":
