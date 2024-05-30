@@ -90,7 +90,7 @@ class Ui_MainWindow:
         self.Angry_icon = QLabel(self.centralwidget)
         self.Angry_icon.setObjectName("Right_icon")
         self.Angry_icon.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
-        self.Angry_icon.setPixmap(QPixmap("./Interface/droite.png"))
+        self.Angry_icon.setPixmap(QPixmap("./Interface/angry.jpg"))
         self.Angry_icon.setScaledContents(True)
 
         self.Angry = QPushButton(self.centralwidget)
@@ -103,7 +103,7 @@ class Ui_MainWindow:
         self.Excited_icon = QLabel(self.centralwidget)
         self.Excited_icon.setObjectName("Right_icon")
         self.Excited_icon.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
-        self.Excited_icon.setPixmap(QPixmap("./Interface/droite.png"))
+        self.Excited_icon.setPixmap(QPixmap("./Interface/excited.png"))
         self.Excited_icon.setScaledContents(True)
 
         self.Excited = QPushButton(self.centralwidget)
