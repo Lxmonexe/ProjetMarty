@@ -5,6 +5,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from PyQt6 import QtCore
 import sys
+from martypy import Marty
 from PyQt6.QtWidgets import (
     QMainWindow,
     QApplication,
@@ -16,8 +17,10 @@ from PyQt6.QtWidgets import (
     QSlider,
     QStatusBar
 )
-MARTY: Marty 
+
+
 class Ui_MainWindow:
+    
     state = "test"
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
@@ -200,27 +203,28 @@ class Ui_MainWindow:
         self.state = "idle"
 
     def action(self):
-        # if(isConnect(MARTY)):
+         #if(isConnect(MARTY)):
             print(self.CurseurVitesse.value()) #☻Pour récupérer la valeur du curseur quand vous voulez changer la vitesse
             if self.state == "idle":
-                print("idle")
+                stop(MARTY)
+
             if self.state == "forward":
-                print("forward")
-                #     angry(MARTY)
+                #print("forward")
+                toward(MARTY, self.CurseurVitesse.value())
             if self.state == "backward":
-                print("backward")
-                #     excited(MARTY)
+                #print("backward")
+                backward(MARTY, self.CurseurVitesse.value())
             if self.state == "left":
-                print("left")
-                #left(MARTY)
+                #print("left")
+                left(MARTY, self.CurseurVitesse.value())
             if self.state == "right":
-                print("right")
-                #right(MARTY)
+                #print("right")
+                right(MARTY, self.CurseurVitesse.value())
             if self.state == "dance":
-                print("dance")
-                #dance(MARTY)
-        # else:
-        #     print("You need to be connected !")
+                #print("dance")
+                dance(MARTY)
+            #else:
+             #print("You need to be connected !")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -230,7 +234,7 @@ if __name__ == "__main__":
     MainWindow.show()
     timer = QtCore.QTimer()
     timer.timeout.connect(ui.action)
-    timer.start(100) #CHANGER MILLISECONDE APPELER FONCTION DEPLACMENT
+    timer.start(2000) #CHANGER MILLISECONDE APPELER FONCTION DEPLACMENT
     sys.exit(app.exec())
     ui.setupUi(MainWindow)
     MainWindow.show()
