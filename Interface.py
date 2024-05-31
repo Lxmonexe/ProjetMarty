@@ -15,6 +15,7 @@ from PyQt6.QtWidgets import (
     QMenuBar,
     QProgressBar,
     QSlider,
+    QFrame,
     QStatusBar
 )
 MARTY: Marty 
@@ -92,13 +93,17 @@ class Ui_MainWindow:
         self.Right.pressed.connect(self.right_button_pressed)
         self.Right.released.connect(self.right_button_released)
         
+        self.frame = QFrame(self.centralwidget)
+        self.frame.setGeometry(QtCore.QRect(900, 20, 270, 70))
+        self.frame.setStyleSheet("background-color: #FEEFAD; border: 0px solid black;")
+
         #Bouton Red
         self.Red = QPushButton("", self.centralwidget)    
         self.Red.setStyleSheet("background-color: #ed1c24;") 
         self.Red.setObjectName("Red")
-        self.Red.setGeometry(900, 30, 50, 50)
+        self.Red.setGeometry(self.frame.pos().x() + 10, self.frame.pos().y() + 10, 50, 50)
         self.Red.clicked.connect(self.Red_button_clicked)
-        print(self.Red.pos().x())
+        
         #Bouton Green
         self.Green = QPushButton("", self.centralwidget)    
         self.Green.setStyleSheet("background-color: #22b14c;") 
@@ -282,9 +287,11 @@ class Ui_MainWindow:
     def connexion_button_clicked(self):
         global MARTY 
         MARTY = connect("usb", "COM8")
+        self.Connexion_icon.setPixmap(QPixmap("./Interface/connexion_on.png"))
         
     def deconnexion_button_clicked(self):
         disconnect(MARTY)
+        self.Connexion_icon.setPixmap(QPixmap("./Interface/connexion.png"))
 
     def dance_button_pressed(self):
         self.state = "dance"
@@ -330,7 +337,6 @@ class Ui_MainWindow:
     def action(self):
         if self.state == "idle":
             stop(MARTY)
-
         if self.state == "forward":
             #print("forward")
             toward(MARTY, self.CurseurVitesse.value())
