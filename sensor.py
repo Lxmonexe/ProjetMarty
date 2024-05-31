@@ -82,3 +82,59 @@ monitor_battery()
 # # for value in distanceSensor:
 # #     print(value);
 
+def calibrate_yellow(marty):
+    tableau = []
+    for _ in range(50):
+        valeur = marty.get_color_sensor_hex("left")
+        tableau.append(valeur)
+        time.sleep(0.02)
+    return tableau
+    
+def calibrate_green(marty):
+    tableau = []
+    for _ in range(20):
+        valeur = marty.get_color_sensor_hex("left")
+        tableau.append(valeur)
+        time.sleep(0.1)
+    return tableau
+
+def calibrate_purple(marty):
+    tableau = []
+    for _ in range(20):
+        valeur = marty.get_color_sensor_hex("left")
+        tableau.append(valeur)
+        time.sleep(0.1)
+    return tableau
+
+def calibrate_red(marty):
+    tableau = []
+    for _ in range(20):
+        valeur = marty.get_color_sensor_hex("left")
+        tableau.append(valeur)
+        time.sleep(0.1)
+        
+    return tableau
+
+def calibrate_blue(marty):
+    tableau = []
+    for _ in range(20):
+        valeur = marty.get_color_sensor_hex("left")
+        tableau.append(valeur)
+        time.sleep(0.1)
+    return tableau
+
+def color_sensor(yellow, green, purple, red, blue, marty):
+    color = marty.get_color_sensor_hex("left");
+    if color in yellow:
+        return "yellow";
+    elif color in green:
+        return "green";
+    elif color in purple:
+        return "purple";
+    elif color in red:
+        return "red";
+    elif color in blue:
+        return "blue";
+    else:
+        return "not defined";
+
