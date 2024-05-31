@@ -2,7 +2,7 @@ from connection import *
 from control import *
 from emotion import *
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QPalette, QColor
 from PyQt6 import QtCore
 import sys
 import keyboard
@@ -28,7 +28,10 @@ class Ui_MainWindow:
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
             MainWindow.setObjectName("MainWindow")
-
+        MainWindow.setStyleSheet("background-color: #FEEFAD;") #jaune pale
+        MainWindow.setStyleSheet("background-color: #FDDE55;") #jaune chaud
+        MainWindow.setStyleSheet("background-color: #68D2E8;") #bleu cyan
+        MainWindow.setStyleSheet("background-color: #03AED2;") #bleu mer
         MainWindow.resize(1536, 793)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -88,29 +91,64 @@ class Ui_MainWindow:
         self.Right.setFlat(True)
         self.Right.pressed.connect(self.right_button_pressed)
         self.Right.released.connect(self.right_button_released)
+        
+        #Bouton Red
+        self.Red = QPushButton("", self.centralwidget)    
+        self.Red.setStyleSheet("background-color: #ed1c24;") 
+        self.Red.setObjectName("Red")
+        self.Red.setGeometry(900, 30, 50, 50)
+        self.Red.clicked.connect(self.Red_button_clicked)
+        print(self.Red.pos().x())
+        #Bouton Green
+        self.Green = QPushButton("", self.centralwidget)    
+        self.Green.setStyleSheet("background-color: #22b14c;") 
+        self.Green.setObjectName("Red")
+        self.Green.setGeometry(self.Red.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Green.clicked.connect(self.Green_button_clicked)
 
-        #Bouton angry
+        #Bouton Yellow
+        self.Yellow = QPushButton("", self.centralwidget)    
+        self.Yellow.setStyleSheet("background-color: #b5e61d;") 
+        self.Yellow.setObjectName("Red")
+        self.Yellow.setGeometry(self.Green.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Yellow.clicked.connect(self.Yellow_button_clicked)
+
+        #Bouton Blue
+        self.Blue = QPushButton("", self.centralwidget)    
+        self.Blue.setStyleSheet("background-color: #00a2e8;") 
+        self.Blue.setObjectName("Red")
+        self.Blue.setGeometry(self.Yellow.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Blue.clicked.connect(self.Blue_button_clicked)
+        
+        # Bouton Purple
+        self.Purple = QPushButton("", self.centralwidget)    
+        self.Purple.setStyleSheet("background-color: #531e70;") 
+        self.Purple.setObjectName("Red")
+        self.Purple.setGeometry(self.Blue.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Purple.clicked.connect(self.Purple_button_clicked)
+
+        # #Bouton angry
         self.Angry_icon = QLabel(self.centralwidget)
-        self.Angry_icon.setObjectName("Right_icon")
+        self.Angry_icon.setObjectName("Angry_icon")
         self.Angry_icon.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
         self.Angry_icon.setPixmap(QPixmap("./Interface/angry.jpg"))
         self.Angry_icon.setScaledContents(True)
 
         self.Angry = QPushButton(self.centralwidget)
-        self.Angry.setObjectName("Right")
+        self.Angry.setObjectName("Angry")
         self.Angry.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
         self.Angry.setFlat(True)
         self.Angry.clicked.connect(self.angry_button_clicked)
 
         #Bouton excited
         self.Excited_icon = QLabel(self.centralwidget)
-        self.Excited_icon.setObjectName("Right_icon")
+        self.Excited_icon.setObjectName("Excited_icon")
         self.Excited_icon.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
         self.Excited_icon.setPixmap(QPixmap("./Interface/excited.png"))
         self.Excited_icon.setScaledContents(True)
 
         self.Excited = QPushButton(self.centralwidget)
-        self.Excited.setObjectName("Right")
+        self.Excited.setObjectName("Excited")
         self.Excited.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
         self.Excited.setFlat(True)
         self.Excited.clicked.connect(self.excited_button_clicked)
@@ -146,6 +184,7 @@ class Ui_MainWindow:
         self.Deconnexion.setGeometry(120, 10, 101, 101)
         self.Deconnexion.setFlat(True)
         self.Deconnexion.clicked.connect(self.deconnexion_button_clicked)
+        
         #Bouton Dance
         self.Dance = QPushButton(self.centralwidget)
         self.Dance.setObjectName("Dance")
@@ -162,12 +201,14 @@ class Ui_MainWindow:
         self.CurseurVitesse.setSingleStep(1)
         self.CurseurVitesse.setSliderPosition(1500)
         self.CurseurVitesse.setOrientation(Qt.Orientation.Horizontal)
+        self.CurseurVitesse.setStyleSheet("QSlider::handle:horizontal {width: 15;border-radius: 5px; margin: -8px; background-color: #FEEFAD; } QSlider::groove:horizontal {border: 2px solid #FEEFAD; height: 1px; background-color: #FEEFAD; } QSlider:add-page:horizontal {background-color: #68D2E8;}")
 
         #Barre de batterie
         self.Battery = QProgressBar(self.centralwidget)
         self.Battery.setObjectName("Batterie")
         self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))
-        self.Battery.setValue(50)
+        self.Battery.setValue(70)
+        self.Battery.setStyleSheet("QProgressBar {border: 2px solid #FEEFAD; border-radius: 0px #FEEFAD; text-align: center; color: black; font-weight: bold; } QProgressBar::chunk {width: 10px; background-color: #FEEFAD; width: 20px;}")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.menubar = QMenuBar(MainWindow)
@@ -214,18 +255,33 @@ class Ui_MainWindow:
     def right_button_released(self):
         self.state = "idle"
 
+    def Red_button_clicked(self):
+        print("Red button clicked")
+
+    def Green_button_clicked(self):
+        print("Green button clicked")
+
+    def Yellow_button_clicked(self):
+        print("Yellow button clicked")
+    
+    def Purple_button_clicked(self):
+        print("Purple button clicked")
+    
+    def Blue_button_clicked(self):
+        print("Blue button clicked")
+        
     def angry_button_clicked(self):
-        self.emotion = "angry"
+        angry(MARTY)
 
     def excited_button_clicked(self):
-        self.emotion = "excited"
+        excited(MARTY)
 
     def auto_button_clicked(self):
         print("Auto button clicked")
 
     def connexion_button_clicked(self):
         global MARTY 
-        MARTY = connect("wifi", self.ipAddress)
+        MARTY = connect("usb", "COM8")
         
     def deconnexion_button_clicked(self):
         disconnect(MARTY)
@@ -271,15 +327,7 @@ class Ui_MainWindow:
         self.Dance.setGeometry(110, MainWindow.size().height()-240, 100, 100)
         self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))    
 
-    def emotion_state(self):
-        if self.emotion == "angry":
-            angry(MARTY)
-        elif self.emotion == "excited":
-            excited(MARTY)
-
     def action(self):
-        # if(isConnect(MARTY)):
-        print(self.CurseurVitesse.value()) #☻Pour récupérer la valeur du curseur quand vous voulez changer la vitesse
         if self.state == "idle":
             stop(MARTY)
 
@@ -289,17 +337,15 @@ class Ui_MainWindow:
         if self.state == "backward":
             #print("backward")
             backward(MARTY, self.CurseurVitesse.value())
-            if self.state == "left":
-                #print("left")
-                left(MARTY, self.CurseurVitesse.value())
-            if self.state == "right":
-                #print("right")
-                right(MARTY, self.CurseurVitesse.value())
-            if self.state == "dance":
-                #print("dance")
-                dance(MARTY)
-            #else:
-             #print("You need to be connected !")
+        if self.state == "left":
+            #print("left")
+            left(MARTY, self.CurseurVitesse.value())
+        if self.state == "right":
+            #print("right")
+            right(MARTY, self.CurseurVitesse.value())
+        if self.state == "dance":
+            print("dance")
+            dance(MARTY)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -311,7 +357,6 @@ if __name__ == "__main__":
     timerResize = QtCore.QTimer()
     timerMove.timeout.connect(ui.action)
     timerMove.timeout.connect(ui.keyboard)
-    timerMove.timeout.connect(ui.emotion_state)
     timerResize.timeout.connect(ui.resize)
     timerMove.start(100)  #CHANGER MILLISECONDE APPELER FONCTION DEPLACMENT
     timerResize.start(5)
