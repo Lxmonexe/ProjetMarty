@@ -1,6 +1,7 @@
 from connection import *
 from control import *
 from emotion import *
+from sensor import *
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QPalette, QColor
 from PyQt6 import QtCore
@@ -26,6 +27,13 @@ class Ui_MainWindow:
     state = "test"
     kstate = "ktest"
     emotion = "etest"
+    pink = [255, 94, 235]
+    red = [237, 28, 36]
+    yellow = [255, 244, 74]
+    green = [3, 230, 0]
+    cyan = [103, 250, 255]
+    blue = [0, 79, 113]
+    black = [0, 0, 0]
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
             MainWindow.setObjectName("MainWindow")
@@ -274,24 +282,31 @@ class Ui_MainWindow:
         self.state = "idle"
 
     def Pink_button_clicked(self):
+        self.pink = calibrate_pink(MARTY)
         print("Pink button clicked")
 
     def Red_button_clicked(self):
+        self.red = calibrate_red(MARTY)
         print("Red button clicked")
 
     def Yellow_button_clicked(self):
+        self.yellow = calibrate_yellow(MARTY)
         print("Yellow button clicked")
     
     def Green_button_clicked(self):
+        self.green = calibrate_green(MARTY)
         print("Green button clicked")
 
     def Cyan_button_clicked(self):
+        self.cyan = calibrate_cyan(MARTY)
         print("Cyan button clicked")
     
     def Blue_button_clicked(self):
+        self.blue = calibrate_blue(MARTY)
         print("Blue button clicked")
     
     def Black_button_clicked(self):
+        self.black = calibrate_black(MARTY)
         print("Black button clicked")
 
     def angry_button_clicked(self):
