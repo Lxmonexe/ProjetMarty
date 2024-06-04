@@ -335,6 +335,9 @@ class Ui_MainWindow:
         self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))    
 
     def action(self):
+        if(self.testConnect):
+            # get battery 
+            self.Battery.setValue(MARTY.get_battery_remaining())
         if self.state == "idle":
             stop(MARTY)
         if self.state == "forward":
