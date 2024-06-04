@@ -94,43 +94,56 @@ class Ui_MainWindow:
         self.Right.released.connect(self.right_button_released)
         
         self.frame = QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(900, 20, 270, 70))
+        self.frame.setGeometry(QtCore.QRect(880, 20, 370, 70))
         self.frame.setStyleSheet("background-color: #FEEFAD; border: 0px solid black;")
 
+        #Bouton Pink
+        self.Pink = QPushButton("", self.centralwidget)    
+        self.Pink.setStyleSheet("background-color: #FF5EEB;") 
+        self.Pink.setObjectName("Red")
+        self.Pink.setGeometry(self.frame.pos().x() + 10, self.frame.pos().y() + 10, 50, 50)
+        self.Pink.clicked.connect(self.Pink_button_clicked)
         #Bouton Red
         self.Red = QPushButton("", self.centralwidget)    
         self.Red.setStyleSheet("background-color: #ed1c24;") 
         self.Red.setObjectName("Red")
-        self.Red.setGeometry(self.frame.pos().x() + 10, self.frame.pos().y() + 10, 50, 50)
+        self.Red.setGeometry(self.Pink.pos().x() + 50, self.frame.pos().y() + 10, 50, 50)
         self.Red.clicked.connect(self.Red_button_clicked)
         
-        #Bouton Green
-        self.Green = QPushButton("", self.centralwidget)    
-        self.Green.setStyleSheet("background-color: #22b14c;") 
-        self.Green.setObjectName("Red")
-        self.Green.setGeometry(self.Red.pos().x()+50, self.Red.pos().y(), 50, 50)
-        self.Green.clicked.connect(self.Green_button_clicked)
-
         #Bouton Yellow
         self.Yellow = QPushButton("", self.centralwidget)    
-        self.Yellow.setStyleSheet("background-color: #b5e61d;") 
+        self.Yellow.setStyleSheet("background-color: #FFF44A;") 
         self.Yellow.setObjectName("Red")
-        self.Yellow.setGeometry(self.Green.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Yellow.setGeometry(self.Red.pos().x()+50, self.Red.pos().y(), 50, 50)
         self.Yellow.clicked.connect(self.Yellow_button_clicked)
 
-        #Bouton Blue
-        self.Blue = QPushButton("", self.centralwidget)    
-        self.Blue.setStyleSheet("background-color: #00a2e8;") 
-        self.Blue.setObjectName("Red")
-        self.Blue.setGeometry(self.Yellow.pos().x()+50, self.Red.pos().y(), 50, 50)
-        self.Blue.clicked.connect(self.Blue_button_clicked)
+        #Bouton Green
+        self.Green = QPushButton("", self.centralwidget)    
+        self.Green.setStyleSheet("background-color: #03E600;") 
+        self.Green.setObjectName("Red")
+        self.Green.setGeometry(self.Yellow.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Green.clicked.connect(self.Green_button_clicked)
         
-        # Bouton Purple
-        self.Purple = QPushButton("", self.centralwidget)    
-        self.Purple.setStyleSheet("background-color: #531e70;") 
-        self.Purple.setObjectName("Red")
-        self.Purple.setGeometry(self.Blue.pos().x()+50, self.Red.pos().y(), 50, 50)
-        self.Purple.clicked.connect(self.Purple_button_clicked)
+        # Bouton Cyan
+        self.Cyan = QPushButton("", self.centralwidget)    
+        self.Cyan.setStyleSheet("background-color: #67FAFF;") 
+        self.Cyan.setObjectName("Red")
+        self.Cyan.setGeometry(self.Green.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Cyan.clicked.connect(self.Cyan_button_clicked)
+        
+        # Bouton Blue
+        self.Blue = QPushButton("", self.centralwidget)    
+        self.Blue.setStyleSheet("background-color: #004F71;") 
+        self.Blue.setObjectName("Red")
+        self.Blue.setGeometry(self.Cyan.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Blue.clicked.connect(self.Blue_button_clicked)
+
+        # Bouton Black
+        self.Black = QPushButton("", self.centralwidget)    
+        self.Black.setStyleSheet("background-color: #000000;") 
+        self.Black.setObjectName("Red")
+        self.Black.setGeometry(self.Blue.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Black.clicked.connect(self.Black_button_clicked)
 
         # #Bouton angry
         self.Angry_icon = QLabel(self.centralwidget)
@@ -260,21 +273,27 @@ class Ui_MainWindow:
     def right_button_released(self):
         self.state = "idle"
 
+    def Pink_button_clicked(self):
+        print("Pink button clicked")
+
     def Red_button_clicked(self):
         print("Red button clicked")
-
-    def Green_button_clicked(self):
-        print("Green button clicked")
 
     def Yellow_button_clicked(self):
         print("Yellow button clicked")
     
-    def Purple_button_clicked(self):
-        print("Purple button clicked")
+    def Green_button_clicked(self):
+        print("Green button clicked")
+
+    def Cyan_button_clicked(self):
+        print("Cyan button clicked")
     
     def Blue_button_clicked(self):
         print("Blue button clicked")
-        
+    
+    def Black_button_clicked(self):
+        print("Black button clicked")
+
     def angry_button_clicked(self):
         angry(MARTY)
 
@@ -335,9 +354,6 @@ class Ui_MainWindow:
         self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))    
 
     def action(self):
-        if(self.testConnect):
-            # get battery 
-            self.Battery.setValue(MARTY.get_battery_remaining())
         if self.state == "idle":
             stop(MARTY)
         if self.state == "forward":
