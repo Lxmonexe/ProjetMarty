@@ -92,7 +92,7 @@ def calibrate_green(marty):
     valeurRGB = hex_to_rgb(valeurHex);
     return valeurRGB;
 
-def calibrate_purple(marty):
+def calibrate_pink(marty):
     valeurHex = marty.get_color_sensor_hex("left");
     valeurRGB = hex_to_rgb(valeurHex);
     return valeurRGB;
@@ -117,15 +117,15 @@ def calibrate_black(marty):
     valeurRGB = hex_to_rgb(valeurHex);
     return valeurRGB;
 
-def color_sensor(yellow, green, purple, red, blue, cyan, black, marty):
+def color_sensor(yellow, green, pink, red, blue, cyan, black, marty):
     colorHEX = marty.get_color_sensor_hex("left");
     colorRGB = hex_to_rgb(colorHEX);
     if ((is_within_uncertainty(colorRGB[0], yellow[0], 10)) and (is_within_uncertainty(colorRGB[1], yellow[1], 10)) and (is_within_uncertainty(colorRGB[2], yellow[2], 10))):
         return "yellow";
     elif ((is_within_uncertainty(colorRGB[0], green[0], 10)) and (is_within_uncertainty(colorRGB[1], green[1], 10)) and (is_within_uncertainty(colorRGB[2], green[2], 10))):
         return "green";
-    elif ((is_within_uncertainty(colorRGB[0], purple[0], 10)) and (is_within_uncertainty(colorRGB[1], purple[1], 10)) and (is_within_uncertainty(colorRGB[2], purple[2], 10))):
-        return "purple";
+    elif ((is_within_uncertainty(colorRGB[0], pink[0], 10)) and (is_within_uncertainty(colorRGB[1], pink[1], 10)) and (is_within_uncertainty(colorRGB[2], pink[2], 10))):
+        return "pink";
     elif ((is_within_uncertainty(colorRGB[0], red[0], 10)) and (is_within_uncertainty(colorRGB[1], red[1], 10)) and (is_within_uncertainty(colorRGB[2], red[2], 10))):
         return "red";
     elif ((is_within_uncertainty(colorRGB[0], blue[0], 10)) and (is_within_uncertainty(colorRGB[1], blue[1], 10)) and (is_within_uncertainty(colorRGB[2], blue[2], 10))):
