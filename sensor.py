@@ -37,19 +37,19 @@ def color_sensor(yellow, green, pink, red, blue, cyan, black, marty):
     colorHEX = marty.get_color_sensor_hex("left")
     colorRGB = hex_to_rgb(colorHEX)
     if ((is_within_uncertainty(colorRGB[0], yellow[0], 10)) and (is_within_uncertainty(colorRGB[1], yellow[1], 10)) and (is_within_uncertainty(colorRGB[2], yellow[2], 10))):
-        return "yellow"
+        return "#FFF44A"
     elif ((is_within_uncertainty(colorRGB[0], green[0], 10)) and (is_within_uncertainty(colorRGB[1], green[1], 10)) and (is_within_uncertainty(colorRGB[2], green[2], 10))):
-        return "green"
+        return "#03E600"
     elif ((is_within_uncertainty(colorRGB[0], pink[0], 10)) and (is_within_uncertainty(colorRGB[1], pink[1], 10)) and (is_within_uncertainty(colorRGB[2], pink[2], 10))):
-        return "pink"
+        return "#FF5EEB"
     elif ((is_within_uncertainty(colorRGB[0], red[0], 10)) and (is_within_uncertainty(colorRGB[1], red[1], 10)) and (is_within_uncertainty(colorRGB[2], red[2], 10))):
-        return "red"
+        return "#ed1c24"
     elif ((is_within_uncertainty(colorRGB[0], blue[0], 10)) and (is_within_uncertainty(colorRGB[1], blue[1], 10)) and (is_within_uncertainty(colorRGB[2], blue[2], 10))):
-        return "blue"
+        return "#004F71"
     elif ((is_within_uncertainty(colorRGB[0], cyan[0], 10)) and (is_within_uncertainty(colorRGB[1], cyan[1], 10)) and (is_within_uncertainty(colorRGB[2], cyan[2], 10))):
-        return "cyan"
+        return "#67FAFF"
     elif ((is_within_uncertainty(colorRGB[0], black[0], 10)) and (is_within_uncertainty(colorRGB[1], black[1], 10)) and (is_within_uncertainty(colorRGB[2], black[2], 10))):
-        return "black"
+        return "#000000"
     else:
         return "not defined"
 

@@ -27,13 +27,15 @@ class Ui_MainWindow:
     state = "test"
     kstate = "ktest"
     emotion = "etest"
-    pink = [255, 94, 235]
-    red = [237, 28, 36]
+    pink = "#FF5EEB"
+    red = "#ed1c24"
     yellow = [255, 244, 74]
     green = [3, 230, 0]
     cyan = [103, 250, 255]
     blue = [0, 79, 113]
     black = [0, 0, 0]
+    color = "#FFFFFF"
+
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
             MainWindow.setObjectName("MainWindow")
@@ -101,6 +103,11 @@ class Ui_MainWindow:
         self.Right.pressed.connect(self.right_button_pressed)
         self.Right.released.connect(self.right_button_released)
         
+        #Indicateur couleur
+        self.indicateur = QFrame(self.centralwidget)
+        self.indicateur.setGeometry(QtCore.QRect(880, 90, 370, 20))
+        self.indicateur.setStyleSheet("background-color: #FFFFFF; border: 0px solid black;")
+
         self.frame = QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(880, 20, 370, 70))
         self.frame.setStyleSheet("background-color: #FEEFAD; border: 0px solid black;")
@@ -111,6 +118,7 @@ class Ui_MainWindow:
         self.Pink.setObjectName("Red")
         self.Pink.setGeometry(self.frame.pos().x() + 10, self.frame.pos().y() + 10, 50, 50)
         self.Pink.clicked.connect(self.Pink_button_clicked)
+
         #Bouton Red
         self.Red = QPushButton("", self.centralwidget)    
         self.Red.setStyleSheet("background-color: #ed1c24;") 
@@ -361,6 +369,8 @@ class Ui_MainWindow:
 
         self.Right_icon.setGeometry(210, MainWindow.size().height()-240, 100, 100)
         self.Right.setGeometry(210, MainWindow.size().height()-240, 100, 100)
+        
+        self.indicateur.setStyleSheet("background-color: 'color'; border: 0px solid black;")
 
         self.Angry_icon.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
         self.Angry.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
@@ -369,25 +379,22 @@ class Ui_MainWindow:
         self.Excited.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
 
         self.Dance.setGeometry(110, MainWindow.size().height()-240, 100, 100)
-        self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))    
+        self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))   
+        self.color = color_sensor(self.yellow, self.green, self.pink, self.red, self.blue, self.cyan, self.black, MARTY)
+        self.indicateur.setStyleSheet("background-color: " + self.color + "; border: 0px solid black;")
 
     def action(self):
         if self.state == "idle":
             stop(MARTY)
         if self.state == "forward":
-            #print("forward")
             toward(MARTY, self.CurseurVitesse.value())
         if self.state == "backward":
-            #print("backward")
             backward(MARTY, self.CurseurVitesse.value())
         if self.state == "left":
-            #print("left")
             left(MARTY, self.CurseurVitesse.value())
         if self.state == "right":
-            #print("right")
             right(MARTY, self.CurseurVitesse.value())
         if self.state == "dance":
-            print("dance")
             dance(MARTY)
 
 if __name__ == "__main__":
