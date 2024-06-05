@@ -35,6 +35,7 @@ class Ui_MainWindow:
     blue = [0, 79, 113]
     black = [0, 0, 0]
     color = "#FFFFFF"
+    isAuto = False
 
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
@@ -331,15 +332,26 @@ class Ui_MainWindow:
 
     def auto_button_clicked(self):
         isColor = True
+        self.isAuto = True
         while isColor:
             self.color = color_sensor(self.yellow, self.green, self.pink, self.red, self.blue, self.cyan, self.black, MARTY)
-            if(self.color == "#004F71"):
-                self.state = "forward"
-            elif(self.color == "#000000"):
-                self.state = "backward"
-            else:
-                self.state = "idle"
-                isColor = False
+            match self.color:
+                case "#FFF44A":
+                    self.state = "forward"
+                case "#03E600":
+                    self.state = "backward"
+                case "#FF5EEB":
+                    self.state = "left"
+                case "#ed1c24":
+                    self.state = "right"
+                case "#004F71":
+                    self.state = "dance"
+                case "#67FAFF":
+                    self.state = "angry"
+                case "#000000":
+                    self.state = "excited"
+                case "not defined":
+                    isColor = False
             self.action()
         
 
@@ -407,8 +419,9 @@ class Ui_MainWindow:
 
         self.Dance.setGeometry(110, MainWindow.size().height()-240, 100, 100)
         self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23)) 
-        if(self.isConnected):  
-            self.color = color_sensor(self.yellow, self.green, self.pink, self.red, self.blue, self.cyan, self.black, MARTY)
+        if(self.isConnected):
+            if( not self.isAuto):  
+                self.color = color_sensor(self.yellow, self.green, self.pink, self.red, self.blue, self.cyan, self.black, MARTY)
             self.indicateur.setStyleSheet("background-color: " + self.color + "; border: 0px solid black;")
 
     def action(self):
@@ -424,6 +437,11 @@ class Ui_MainWindow:
             right(MARTY, self.CurseurVitesse.value())
         if self.state == "dance":
             dance(MARTY)
+        if self.state == "angry":
+            angry(MARTY)
+        if self.state == "excited":
+            excited(MARTY)
+
 
     def getColor(self):
         return self.color
