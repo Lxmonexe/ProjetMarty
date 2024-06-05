@@ -358,7 +358,7 @@ class Ui_MainWindow:
         else:
             self.kstate = "idle"
 
-    def resize(self):
+    def resize(self, MainWindow):
         self.Backward_icon.setGeometry(110, MainWindow.size().height()-140, 100, 100)
         self.Backward.setGeometry(110, MainWindow.size().height()-140, 100, 100)
 
@@ -399,18 +399,5 @@ class Ui_MainWindow:
         if self.state == "dance":
             dance(MARTY)
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    MainWindow = QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    timerMove = QtCore.QTimer()
-    timerResize = QtCore.QTimer()
-    timerMove.timeout.connect(ui.action)
-    timerMove.timeout.connect(ui.keyboard)
-    timerResize.timeout.connect(ui.resize)
-    timerMove.start(100)  #CHANGER MILLISECONDE APPELER FONCTION DEPLACMENT
-    timerResize.start(5)
-    sys.exit(app.exec())
+
 
