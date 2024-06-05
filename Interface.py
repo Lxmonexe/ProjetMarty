@@ -109,7 +109,7 @@ class Ui_MainWindow:
         self.indicateur.setStyleSheet("background-color: #FFFFFF; border: 0px solid black;")
 
         self.frame = QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(880, 20, 370, 70))
+        self.frame.setGeometry(QtCore.QRect(self.indicateur.pos().x(), self.indicateur.pos().y()-70, 370, 70))
         self.frame.setStyleSheet("background-color: #FEEFAD; border: 0px solid black;")
 
         #Bouton Pink
@@ -220,9 +220,17 @@ class Ui_MainWindow:
         self.Deconnexion.clicked.connect(self.deconnexion_button_clicked)
         
         #Bouton Dance
+        self.Dance_icon = QLabel(self.centralwidget)
+        self.Dance_icon.setObjectName("Dance_icon")
+        self.Dance_icon.setGeometry(110, MainWindow.size().height()-240, 100, 100)
+        self.Dance_icon.setPixmap(QPixmap("./Interface/Dance.png"))
+        self.Dance_icon.setScaledContents(True)
+
         self.Dance = QPushButton(self.centralwidget)
         self.Dance.setObjectName("Dance")
         self.Dance.setGeometry(110, MainWindow.size().height()-240, 100, 100)
+        self.Dance.setFlat(True)
+        self.Dance.setText("")
         self.Dance.pressed.connect(self.dance_button_pressed)
         self.Dance.released.connect(self.dance_button_released)
 
@@ -261,9 +269,7 @@ class Ui_MainWindow:
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QApplication.translate("MainWindow", "MainWindow", None))
         self.Auto.setText(QApplication.translate("MainWindow", "Automatique", None))
-        self.Dance.setText(QApplication.translate("MainWindow", "Dance", None))
-        self.Connexion.setText(QApplication.translate("MainWindow", "", None))
-        self.Deconnexion.setText(QApplication.translate("MainWindow", "", None))
+        # self.Connexion.setText(QApplication.translate("MainWindow", "", None))
 
     def backward_button_pressed(self):
         self.state = "backward"
@@ -371,8 +377,15 @@ class Ui_MainWindow:
         self.Right_icon.setGeometry(210, MainWindow.size().height()-240, 100, 100)
         self.Right.setGeometry(210, MainWindow.size().height()-240, 100, 100)
         
-        self.indicateur.setStyleSheet("background-color: 'color'; border: 0px solid black;")
-
+        self.indicateur.setGeometry(QtCore.QRect(MainWindow.size().width() - 680, 90, 370, 20))
+        self.frame.setGeometry(QtCore.QRect(self.indicateur.pos().x(), self.indicateur.pos().y()-70, 370, 70))
+        self.Pink.setGeometry(self.frame.pos().x() + 10, self.frame.pos().y() + 10, 50, 50)
+        self.Red.setGeometry(self.Pink.pos().x() + 50, self.frame.pos().y() + 10, 50, 50)
+        self.Yellow.setGeometry(self.Red.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Green.setGeometry(self.Yellow.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Cyan.setGeometry(self.Green.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Blue.setGeometry(self.Cyan.pos().x()+50, self.Red.pos().y(), 50, 50)
+        self.Black.setGeometry(self.Blue.pos().x()+50, self.Red.pos().y(), 50, 50)
         self.Angry_icon.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
         self.Angry.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
         
