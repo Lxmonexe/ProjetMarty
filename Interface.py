@@ -23,12 +23,12 @@ MARTY: Marty
 class Ui_MainWindow:
 
     ipAddress = "192.168.0.101"
-
+    isConnected = False
     state = "test"
     kstate = "ktest"
     emotion = "etest"
-    pink = "#FF5EEB"
-    red = "#ed1c24"
+    pink = [255, 94, 235]
+    red = [237, 28, 36]
     yellow = [255, 244, 74]
     green = [3, 230, 0]
     cyan = [103, 250, 255]
@@ -330,6 +330,7 @@ class Ui_MainWindow:
         global MARTY 
         MARTY = connect("usb", "COM3")
         self.Connexion_icon.setPixmap(QPixmap("./Interface/connexion_on.png"))
+        self.isConnected = True
         
     def deconnexion_button_clicked(self):
         disconnect(MARTY)
@@ -379,9 +380,10 @@ class Ui_MainWindow:
         self.Excited.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
 
         self.Dance.setGeometry(110, MainWindow.size().height()-240, 100, 100)
-        self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))   
-        self.color = color_sensor(self.yellow, self.green, self.pink, self.red, self.blue, self.cyan, self.black, MARTY)
-        self.indicateur.setStyleSheet("background-color: " + self.color + "; border: 0px solid black;")
+        self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23)) 
+        if(self.isConnected):  
+            self.color = color_sensor(self.yellow, self.green, self.pink, self.red, self.blue, self.cyan, self.black, MARTY)
+            self.indicateur.setStyleSheet("background-color: " + self.color + "; border: 0px solid black;")
 
     def action(self):
         if self.state == "idle":
