@@ -237,7 +237,7 @@ class Ui_MainWindow:
         #Curseur de vitesse
         self.CurseurVitesse = QSlider(self.centralwidget)
         self.CurseurVitesse.setObjectName("CurseurVitesse")
-        self.CurseurVitesse.setGeometry(QtCore.QRect(400, 40, 411, 22))
+        self.CurseurVitesse.setGeometry(QtCore.QRect(250, 40, 550, 22))
         self.CurseurVitesse.setMinimum(1000)
         self.CurseurVitesse.setMaximum(5000)
         self.CurseurVitesse.setSingleStep(1)
@@ -388,7 +388,9 @@ class Ui_MainWindow:
         self.Black.setGeometry(self.Blue.pos().x()+50, self.Red.pos().y(), 50, 50)
         self.Angry_icon.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
         self.Angry.setGeometry(MainWindow.size().width() - 250, 10, 100, 100)
-        
+
+        self.CurseurVitesse.setGeometry(QtCore.QRect(250, 40, int(MainWindow.size().width()-1000), 22))
+
         self.Excited_icon.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
         self.Excited.setGeometry(MainWindow.size().width() - 150, 10, 100, 100)
 
