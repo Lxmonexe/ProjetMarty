@@ -324,7 +324,18 @@ class Ui_MainWindow:
         excited(MARTY)
 
     def auto_button_clicked(self):
-        print("Auto button clicked")
+        isColor = True
+        while isColor:
+            self.color = color_sensor(self.yellow, self.green, self.pink, self.red, self.blue, self.cyan, self.black, MARTY)
+            if(self.color == "#004F71"):
+                self.state = "forward"
+            elif(self.color == "#000000"):
+                self.state = "backward"
+            else:
+                self.state = "idle"
+                isColor = False
+            self.action()
+        
 
     def connexion_button_clicked(self):
         global MARTY 
@@ -399,5 +410,10 @@ class Ui_MainWindow:
         if self.state == "dance":
             dance(MARTY)
 
+    def getColor(self):
+        return self.color
+
+    def changeState(self, state):
+        self.state = state
 
 
