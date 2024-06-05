@@ -320,7 +320,7 @@ class Ui_MainWindow:
 
     def connexion_button_clicked(self):
         global MARTY 
-        MARTY = connect("usb", "COM8")
+        MARTY = connect("usb", "COM3")
         self.Connexion_icon.setPixmap(QPixmap("./Interface/connexion_on.png"))
         
     def deconnexion_button_clicked(self):
@@ -339,10 +339,13 @@ class Ui_MainWindow:
             toward(MARTY, self.CurseurVitesse.value())
         elif keyboard.is_pressed('s') and self.kstate == "idle": 
             self.kstate = "backward"
+            backward(MARTY, self.CurseurVitesse.value())
         elif keyboard.is_pressed('q') and self.kstate == "idle": 
             self.kstate = "left"
+            left(MARTY, self.CurseurVitesse.value())
         elif keyboard.is_pressed('d') and self.kstate == "idle": 
             self.kstate = "right"
+            right(MARTY, self.CurseurVitesse.value())
         else:
             self.kstate = "idle"
 
