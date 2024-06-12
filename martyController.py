@@ -130,22 +130,22 @@ class MartyController:
         
     def auto(self):
         tab = []
-        #tab.append(self.color_sensor())
+        tab.append(self.color_sensor())
         self.marty.sidestep("right",8,35,1500)
-        #tab.append(self.color_sensor())
+        tab.append(self.color_sensor())
         self.marty.sidestep("right",8,35,1500)
-        #tab.append(self.color_sensor())
+        tab.append(self.color_sensor())
         self.marty.walk(7,"auto",0,25,1500)
-        #tab.append(self.color_sensor())
+        tab.append(self.color_sensor())
         self.marty.sidestep("left",8,35,1500)
-        #tab.append(self.color_sensor())
+        tab.append(self.color_sensor())
         self.marty.sidestep("left",8,35,1500)
-        #tab.append(self.color_sensor())
+        tab.append(self.color_sensor())
         self.marty.walk(7,"auto",0,25,1500)
-        #tab.append(self.color_sensor())
+        tab.append(self.color_sensor())
         self.marty.sidestep("right",8,35,1500)
-        #tab.append(self.color_sensor())
+        tab.append(self.color_sensor())
         self.marty.sidestep("right",8,35,1500)
-        #tab.append(self.color_sensor())
+        tab.append(self.color_sensor())
 
         return tab 
