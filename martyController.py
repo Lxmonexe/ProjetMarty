@@ -125,6 +125,6 @@ class MartyController:
         self.marty.dance()
 
     def get_battery(self):
-        return self.marty.get_battery_ramaining()
+        return self.marty.get_battery_remaining()
 
 
