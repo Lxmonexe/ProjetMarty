@@ -127,5 +127,25 @@ class MartyController:
     def get_battery(self):
         if(self.isConnect()):
             return self.marty.get_battery_remaining()
+        
+    def auto(self):
+        tab = []
+        #tab.append(self.color_sensor())
+        self.marty.sidestep("right",8,35,1500)
+        #tab.append(self.color_sensor())
+        self.marty.sidestep("right",8,35,1500)
+        #tab.append(self.color_sensor())
+        self.marty.walk(7,"auto",0,25,1500)
+        #tab.append(self.color_sensor())
+        self.marty.sidestep("left",8,35,1500)
+        #tab.append(self.color_sensor())
+        self.marty.sidestep("left",8,35,1500)
+        #tab.append(self.color_sensor())
+        self.marty.walk(7,"auto",0,25,1500)
+        #tab.append(self.color_sensor())
+        self.marty.sidestep("right",8,35,1500)
+        #tab.append(self.color_sensor())
+        self.marty.sidestep("right",8,35,1500)
+        #tab.append(self.color_sensor())
 
-
+        return tab 
