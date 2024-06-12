@@ -91,7 +91,9 @@ class Controller:
         t.start()
 
     def get_battery_controller(self):
-        t = Thread(target=self.marty.get_battery())
-        t.start()
+        return self.marty.get_battery()
 
+    def auto_controller(self):
+        t = Thread(target=self.marty.auto())
+        t.start()
     
