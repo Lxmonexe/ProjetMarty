@@ -1,7 +1,4 @@
-from connection import *
-from control import *
-from emotion import *
-from sensor import *
+from controller import *
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QPalette, QColor
 from PyQt6 import QtCore
@@ -19,7 +16,7 @@ from PyQt6.QtWidgets import (
     QFrame,
     QStatusBar
 )
-MARTY: Marty 
+
 class Ui_MainWindow:
 
     ipAddress = "192.168.0.101"
@@ -36,7 +33,8 @@ class Ui_MainWindow:
     black = [0, 0, 0]
     color = "#FFFFFF"
     isAuto = False
-
+    battery = 0
+    marty = Controller("usb", "COM3")
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
             MainWindow.setObjectName("MainWindow")
@@ -250,7 +248,8 @@ class Ui_MainWindow:
         self.Battery = QProgressBar(self.centralwidget)
         self.Battery.setObjectName("Batterie")
         self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23))
-        self.Battery.setValue(70)
+        
+        self.Battery.setValue(self.battery)
         self.Battery.setStyleSheet("QProgressBar {border: 2px solid #FEEFAD; border-radius: 0px #FEEFAD; text-align: center; color: black; font-weight: bold; } QProgressBar::chunk {width: 10px; background-color: #FEEFAD; width: 20px;}")
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -297,44 +296,44 @@ class Ui_MainWindow:
         self.state = "idle"
 
     def Pink_button_clicked(self):
-        self.pink = calibrate_pink(MARTY)
+        self.marty.calibrate_pink_controller()
         print("Pink button clicked")
 
     def Red_button_clicked(self):
-        self.red = calibrate_red(MARTY)
+        self.marty.calibrate_red_controller()
         print("Red button clicked")
 
     def Yellow_button_clicked(self):
-        self.yellow = calibrate_yellow(MARTY)
+        self.marty.calibrate_yellow_controller()
         print("Yellow button clicked")
     
     def Green_button_clicked(self):
-        self.green = calibrate_green(MARTY)
+        self.marty.calibrate_green_controller()
         print("Green button clicked")
 
     def Cyan_button_clicked(self):
-        self.cyan = calibrate_cyan(MARTY)
+        self.marty.calibrate_cyan_controller()
         print("Cyan button clicked")
     
     def Blue_button_clicked(self):
-        self.blue = calibrate_blue(MARTY)
+        self.marty.calibrate_blue_controller()
         print("Blue button clicked")
     
     def Black_button_clicked(self):
-        self.black = calibrate_black(MARTY)
+        self.marty.calibrate_black_controller()
         print("Black button clicked")
 
     def angry_button_clicked(self):
-        angry(MARTY)
+        self.state = "angry"
 
     def excited_button_clicked(self):
-        excited(MARTY)
+        self.state = "excited"
 
     def auto_button_clicked(self):
         isColor = True
         self.isAuto = True
         while isColor:
-            self.color = color_sensor(self.yellow, self.green, self.pink, self.red, self.blue, self.cyan, self.black, MARTY)
+            self.color = self.marty.color_sensor_controller()
             match self.color:
                 case "#FFF44A":
                     self.state = "forward"
@@ -356,13 +355,13 @@ class Ui_MainWindow:
         
 
     def connexion_button_clicked(self):
-        global MARTY 
-        MARTY = connect("usb", "COM3")
+        self.marty.connect_controller()
         self.Connexion_icon.setPixmap(QPixmap("./Interface/connexion_on.png"))
         self.isConnected = True
         
+        
     def deconnexion_button_clicked(self):
-        disconnect(MARTY)
+        self.marty.disconnect_controller()
         self.Connexion_icon.setPixmap(QPixmap("./Interface/connexion.png"))
 
     def dance_button_pressed(self):
@@ -374,16 +373,16 @@ class Ui_MainWindow:
     def keyboard(self):
         if keyboard.is_pressed('z') and self.kstate == "idle": 
             self.kstate = "forward"
-            toward(MARTY, self.CurseurVitesse.value())
+            self.marty.toward_controller(self.CurseurVitesse.value())
         elif keyboard.is_pressed('s') and self.kstate == "idle": 
             self.kstate = "backward"
-            backward(MARTY, self.CurseurVitesse.value())
+            self.marty.backward_controller(self.CurseurVitesse.value())
         elif keyboard.is_pressed('q') and self.kstate == "idle": 
             self.kstate = "left"
-            left(MARTY, self.CurseurVitesse.value())
+            self.marty.left_controller(self.CurseurVitesse.value())
         elif keyboard.is_pressed('d') and self.kstate == "idle": 
             self.kstate = "right"
-            right(MARTY, self.CurseurVitesse.value())
+            self.marty.right_controller(self.CurseurVitesse.value())
         else:
             self.kstate = "idle"
 
@@ -420,27 +419,29 @@ class Ui_MainWindow:
         self.Dance.setGeometry(110, MainWindow.size().height()-240, 100, 100)
         self.Battery.setGeometry(QtCore.QRect(MainWindow.size().width() - 150, MainWindow.size().height() - 50, 118, 23)) 
         if(self.isConnected):
-            if( not self.isAuto):  
-                self.color = color_sensor(self.yellow, self.green, self.pink, self.red, self.blue, self.cyan, self.black, MARTY)
-            self.indicateur.setStyleSheet("background-color: " + self.color + "; border: 0px solid black;")
+        #     if(not self.isAuto & self.marty.is_connected_controller()):  
+        #         self.color = self.marty.color_sensor_controller()
+        #     self.indicateur.setStyleSheet("background-color: " + self.color + "; border: 0px solid black;")
+            self.Battery.setValue(self.marty.get_battery_controller())
 
     def action(self):
         if self.state == "idle":
-            stop(MARTY)
+            self.marty.stop_controller()
         if self.state == "forward":
-            toward(MARTY, self.CurseurVitesse.value())
+            self.marty.toward_controller(self.CurseurVitesse.value())
         if self.state == "backward":
-            backward(MARTY, self.CurseurVitesse.value())
+            self.marty.backward_controller(self.CurseurVitesse.value())
         if self.state == "left":
-            left(MARTY, self.CurseurVitesse.value())
+            self.marty.left_controller(self.CurseurVitesse.value())
         if self.state == "right":
-            right(MARTY, self.CurseurVitesse.value())
+            self.marty.right_controller(self.CurseurVitesse.value())
         if self.state == "dance":
-            dance(MARTY)
+            self.marty.dance_controller()
+            
         if self.state == "angry":
-            angry(MARTY)
+            self.marty.angry_controller()
         if self.state == "excited":
-            excited(MARTY)
+            self.marty.excited_controller()
 
 
     def getColor(self):
