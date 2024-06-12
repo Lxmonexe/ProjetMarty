@@ -19,6 +19,7 @@ from PyQt6.QtWidgets import (
 
 class Ui_MainWindow:
 
+    NBMarty = 1
     ipAddress = "192.168.0.101"
     isConnected = False
     state = "test"
@@ -330,28 +331,7 @@ class Ui_MainWindow:
         self.state = "excited"
 
     def auto_button_clicked(self):
-        isColor = True
-        self.isAuto = True
-        while isColor:
-            self.color = self.marty.color_sensor_controller()
-            match self.color:
-                case "#FFF44A":
-                    self.state = "forward"
-                case "#03E600":
-                    self.state = "backward"
-                case "#FF5EEB":
-                    self.state = "left"
-                case "#ed1c24":
-                    self.state = "right"
-                case "#004F71":
-                    self.state = "dance"
-                case "#67FAFF":
-                    self.state = "angry"
-                case "#000000":
-                    self.state = "excited"
-                case "not defined":
-                    isColor = False
-            self.action()
+        self.marty.auto_controller(self.NBMarty)
         
 
     def connexion_button_clicked(self):

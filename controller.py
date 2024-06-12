@@ -4,6 +4,9 @@ from martyController import *
 
 class Controller:
 
+    tab1 = []
+    tab2 = []
+
     def __init__(self, wifi, ip):
         self.marty = None
         self.wifi = wifi
@@ -97,3 +100,12 @@ class Controller:
         t = Thread(target=self.marty.auto())
         t.start()
     
+    def auto_controller(self, NBMarty):
+        if(NBMarty == 1):
+            self.tab1 = self.marty.auto()
+        elif(NBMarty == 2):
+            self.tab2 = self.marty.auto()
+        else:
+            print("Error")
+         
+        
