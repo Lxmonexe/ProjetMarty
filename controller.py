@@ -6,6 +6,7 @@ class Controller:
 
     tab1 = []
     tab2 = []
+    tabFinal = []
 
     def __init__(self, wifi, ip):
         self.marty = None
@@ -96,11 +97,8 @@ class Controller:
     def get_battery_controller(self):
         return self.marty.get_battery()
 
-    def auto_controller(self):
-        t = Thread(target=self.marty.auto())
-        t.start()
     
-    def auto_controller(self, NBMarty):
+    def acquisition_controller(self, NBMarty):
         if(NBMarty == 1):
             self.tab1 = self.marty.auto()
             print(self.tab1)
@@ -109,5 +107,30 @@ class Controller:
             print(self.tab2)
         else:
             print("Error")
-         
+
+    def merge_tab(self):
+        for i in range(0, len(self.tab1)):
+            if(self.tab1[i] == self.tab2[i]):
+                self.tabFinal.append(self.tab1[i])
+            elif((self.tab1[i] != self.tab2[i]) & (self.tab1[i] == "#000000")):
+                self.tabFinal.append(self.tab2[i])
+            elif((self.tab1[i] != self.tab2[i]) & (self.tab2[i] == "#000000")):
+                self.tabFinal.append(self.tab1[i])
+        self.marty.celebrate()
+    
+    def auto_controller(self, speed):
+        for i in range(0, len(self.tabFinal)):
+            if((self.tabFinal[i] == "#03E600") | (self.tabFinal[i] == "#67FAFF")):
+                self.marty.towardAuto(speed)
+            elif(self.tabFinal[i] == "#FFF44A"):
+                self.marty.backwardAuto(speed)
+            elif(self.tabFinal[i] == "#FF5EEB"):
+                self.marty.leftAuto(speed)
+            elif(self.tabFinal[i] == "#004F71"):
+                self.marty.rightAuto(speed)
+            elif(self.tabFinal[i] == "#ed1c24"):
+                self.marty.dance()
+
+
+                
         

@@ -256,8 +256,8 @@ class Ui_MainWindow:
         self.ipAddress = QTextEdit(self.centralwidget)
         self.ipAddress.setObjectName("ipAddress")
         self.ipAddress.setGeometry(40, 180, 100, 20)
-        self.ipAddress.setStyleSheet("background-color: white;") 
-        self.Marty.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.ipAddress.setStyleSheet("background-color: black;") 
+        self.ipAddress.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
         #Bouton IP
         self.IPbutton = QPushButton(self.centralwidget)
@@ -269,7 +269,7 @@ class Ui_MainWindow:
         self.Marty = QTextEdit(self.centralwidget)
         self.Marty.setObjectName("Marty")
         self.Marty.setGeometry(40, 210, 100, 20)
-        self.Marty.setStyleSheet("background-color: white;") 
+        self.Marty.setStyleSheet("background-color: black;") 
         self.Marty.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         
         #Bouton Marty
@@ -377,6 +377,7 @@ class Ui_MainWindow:
         self.isConnected = True  
         
     def deconnexion_button_clicked(self):
+        self.isConnected = False
         self.marty.disconnect_controller()
         self.Connexion_icon.setPixmap(QPixmap("./Interface/connexion.png"))
 
