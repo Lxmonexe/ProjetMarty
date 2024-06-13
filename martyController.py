@@ -131,21 +131,33 @@ class MartyController:
     def auto(self):
         tab = []
         tab.append(self.color_sensor())
-        self.marty.sidestep("right",8,35,1500)
+        self.marty.sidestep("right",6,35,1500)
         tab.append(self.color_sensor())
-        self.marty.sidestep("right",8,35,1500)
-        tab.append(self.color_sensor())
-        self.marty.walk(7,"auto",0,25,1500)
-        tab.append(self.color_sensor())
-        self.marty.sidestep("left",8,35,1500)
-        tab.append(self.color_sensor())
-        self.marty.sidestep("left",8,35,1500)
+        self.marty.sidestep("right",6,35,1500)
         tab.append(self.color_sensor())
         self.marty.walk(7,"auto",0,25,1500)
         tab.append(self.color_sensor())
-        self.marty.sidestep("right",8,35,1500)
+        self.marty.sidestep("left",6,35,1500)
         tab.append(self.color_sensor())
-        self.marty.sidestep("right",8,35,1500)
+        self.marty.sidestep("left",6,35,1500)
+        tab.append(self.color_sensor())
+        self.marty.walk(7,"auto",0,25,1500)
+        tab.append(self.color_sensor())
+        self.marty.sidestep("right",6,35,1500)
+        tab.append(self.color_sensor())
+        self.marty.sidestep("right",6,35,1500)
         tab.append(self.color_sensor())
 
         return tab 
+    
+    def towardAuto(self, vitesse = 1500):
+        self.marty.walk(7,"auto",0,25,vitesse)
+
+    def backwardAuto(self, vitesse = 1500):
+        self.marty.walk(7,"auto",0,-25,vitesse)
+
+    def leftAuto(self, vitesse = 1500):
+        self.marty.sidestep("left",6,35,vitesse)
+
+    def rightAuto(self, vitesse = 1500):
+        self.marty.sidestep("right",6,35,vitesse)

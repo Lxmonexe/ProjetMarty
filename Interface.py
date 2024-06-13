@@ -14,13 +14,14 @@ from PyQt6.QtWidgets import (
     QProgressBar,
     QSlider,
     QFrame,
+    QTextEdit,
     QStatusBar
 )
 
 class Ui_MainWindow:
 
     NBMarty = 1
-    ipAddress = "192.168.0.101"
+    ipAddress = "192.168.0.3"
     isConnected = False
     state = "test"
     kstate = "ktest"
@@ -35,7 +36,7 @@ class Ui_MainWindow:
     color = "#FFFFFF"
     isAuto = False
     battery = 0
-    marty = Controller("usb", "COM3")
+    marty = Controller("wifi", ipAddress)
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
             MainWindow.setObjectName("MainWindow")
@@ -192,6 +193,12 @@ class Ui_MainWindow:
         self.Auto.setObjectName("Auto")
         self.Auto.setGeometry(40, 120, 158, 23)
         self.Auto.clicked.connect(self.auto_button_clicked)
+        
+        #Bouton Acquisition
+        self.Acquisition = QPushButton(self.centralwidget)
+        self.Acquisition.setObjectName("Auto")
+        self.Acquisition.setGeometry(40, 150, 158, 23)
+        self.Acquisition.clicked.connect(self.acquisition_button_clicked)
 
         #Bouton connexion
         self.Connexion_icon = QLabel(self.centralwidget)
@@ -245,6 +252,32 @@ class Ui_MainWindow:
         self.CurseurVitesse.setOrientation(Qt.Orientation.Horizontal)
         self.CurseurVitesse.setStyleSheet("QSlider::handle:horizontal {width: 15;border-radius: 5px; margin: -8px; background-color: #FEEFAD; } QSlider::groove:horizontal {border: 2px solid #FEEFAD; height: 1px; background-color: #FEEFAD; } QSlider:add-page:horizontal {background-color: #68D2E8;}")
 
+        #IP
+        self.ipAddress = QTextEdit(self.centralwidget)
+        self.ipAddress.setObjectName("ipAddress")
+        self.ipAddress.setGeometry(40, 180, 100, 20)
+        self.ipAddress.setStyleSheet("background-color: black;") 
+        self.ipAddress.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+
+        #Bouton IP
+        self.IPbutton = QPushButton(self.centralwidget)
+        self.IPbutton.setObjectName("IPbutton")
+        self.IPbutton.setGeometry(150, 180, 20, 20)
+        self.IPbutton.clicked.connect(self.ip_button_clicked)
+
+        #NBMarty
+        self.Marty = QTextEdit(self.centralwidget)
+        self.Marty.setObjectName("Marty")
+        self.Marty.setGeometry(40, 210, 100, 20)
+        self.Marty.setStyleSheet("background-color: black;") 
+        self.Marty.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        
+        #Bouton Marty
+        self.MartyButton = QPushButton(self.centralwidget)
+        self.MartyButton.setObjectName("IPbutton")
+        self.MartyButton.setGeometry(150, 210, 20, 20)
+        self.MartyButton.clicked.connect(self.MartyButton_button_clicked)
+
         #Barre de batterie
         self.Battery = QProgressBar(self.centralwidget)
         self.Battery.setObjectName("Batterie")
@@ -270,6 +303,8 @@ class Ui_MainWindow:
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QApplication.translate("MainWindow", "MainWindow", None))
         self.Auto.setText(QApplication.translate("MainWindow", "Automatique", None))
+        self.Acquisition.setText(QApplication.translate("MainWindow", "Acquisition", None))
+        
         # self.Connexion.setText(QApplication.translate("MainWindow", "", None))
 
     def backward_button_pressed(self):
@@ -333,14 +368,16 @@ class Ui_MainWindow:
     def auto_button_clicked(self):
         self.marty.auto_controller(self.NBMarty)
         
+    def acquisition_button_clicked(self):
+        self.marty.auto_controller(self.NBMarty)
 
     def connexion_button_clicked(self):
         self.marty.connect_controller()
         self.Connexion_icon.setPixmap(QPixmap("./Interface/connexion_on.png"))
-        self.isConnected = True
-        
+        self.isConnected = True  
         
     def deconnexion_button_clicked(self):
+        self.isConnected = False
         self.marty.disconnect_controller()
         self.Connexion_icon.setPixmap(QPixmap("./Interface/connexion.png"))
 
@@ -349,6 +386,12 @@ class Ui_MainWindow:
 
     def dance_button_released(self):
         self.state = "idle"
+
+    def ip_button_clicked(self):
+        self.ipAddress = self.ipAddress.toPlainText()
+
+    def MartyButton_button_clicked(self):
+        self.NBMarty = int(self.Marty.toPlainText())
 
     def keyboard(self):
         if keyboard.is_pressed('z') and self.kstate == "idle": 
