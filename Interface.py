@@ -14,6 +14,7 @@ from PyQt6.QtWidgets import (
     QProgressBar,
     QSlider,
     QFrame,
+    QTextEdit,
     QStatusBar
 )
 
@@ -196,7 +197,7 @@ class Ui_MainWindow:
         #Bouton Acquisition
         self.Acquisition = QPushButton(self.centralwidget)
         self.Acquisition.setObjectName("Auto")
-        self.Acquisition.setGeometry(40, 120, 158, 23)
+        self.Acquisition.setGeometry(40, 150, 158, 23)
         self.Acquisition.clicked.connect(self.acquisition_button_clicked)
 
         #Bouton connexion
@@ -251,6 +252,32 @@ class Ui_MainWindow:
         self.CurseurVitesse.setOrientation(Qt.Orientation.Horizontal)
         self.CurseurVitesse.setStyleSheet("QSlider::handle:horizontal {width: 15;border-radius: 5px; margin: -8px; background-color: #FEEFAD; } QSlider::groove:horizontal {border: 2px solid #FEEFAD; height: 1px; background-color: #FEEFAD; } QSlider:add-page:horizontal {background-color: #68D2E8;}")
 
+        #IP
+        self.ipAddress = QTextEdit(self.centralwidget)
+        self.ipAddress.setObjectName("ipAddress")
+        self.ipAddress.setGeometry(40, 180, 100, 20)
+        self.ipAddress.setStyleSheet("background-color: white;") 
+        self.Marty.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+
+        #Bouton IP
+        self.IPbutton = QPushButton(self.centralwidget)
+        self.IPbutton.setObjectName("IPbutton")
+        self.IPbutton.setGeometry(150, 180, 20, 20)
+        self.IPbutton.clicked.connect(self.ip_button_clicked)
+
+        #NBMarty
+        self.Marty = QTextEdit(self.centralwidget)
+        self.Marty.setObjectName("Marty")
+        self.Marty.setGeometry(40, 210, 100, 20)
+        self.Marty.setStyleSheet("background-color: white;") 
+        self.Marty.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        
+        #Bouton Marty
+        self.MartyButton = QPushButton(self.centralwidget)
+        self.MartyButton.setObjectName("IPbutton")
+        self.MartyButton.setGeometry(150, 210, 20, 20)
+        self.MartyButton.clicked.connect(self.MartyButton_button_clicked)
+
         #Barre de batterie
         self.Battery = QProgressBar(self.centralwidget)
         self.Battery.setObjectName("Batterie")
@@ -276,7 +303,7 @@ class Ui_MainWindow:
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QApplication.translate("MainWindow", "MainWindow", None))
         self.Auto.setText(QApplication.translate("MainWindow", "Automatique", None))
-        self.Auto.setText(QApplication.translate("MainWindow", "Acquisition", None))
+        self.Acquisition.setText(QApplication.translate("MainWindow", "Acquisition", None))
         
         # self.Connexion.setText(QApplication.translate("MainWindow", "", None))
 
@@ -358,6 +385,12 @@ class Ui_MainWindow:
 
     def dance_button_released(self):
         self.state = "idle"
+
+    def ip_button_clicked(self):
+        self.ipAddress = self.ipAddress.toPlainText()
+
+    def MartyButton_button_clicked(self):
+        self.NBMarty = int(self.Marty.toPlainText())
 
     def keyboard(self):
         if keyboard.is_pressed('z') and self.kstate == "idle": 
