@@ -20,7 +20,7 @@ from PyQt6.QtWidgets import (
 class Ui_MainWindow:
 
     NBMarty = 1
-    ipAddress = "192.168.0.101"
+    ipAddress = "192.168.0.3"
     isConnected = False
     state = "test"
     kstate = "ktest"
@@ -35,7 +35,7 @@ class Ui_MainWindow:
     color = "#FFFFFF"
     isAuto = False
     battery = 0
-    marty = Controller("usb", "COM3")
+    marty = Controller("wifi", ipAddress)
     def setupUi(self, MainWindow):
         if MainWindow.objectName() == "":
             MainWindow.setObjectName("MainWindow")

@@ -103,8 +103,10 @@ class Controller:
     def auto_controller(self, NBMarty):
         if(NBMarty == 1):
             self.tab1 = self.marty.auto()
+            print(self.tab1)
         elif(NBMarty == 2):
             self.tab2 = self.marty.auto()
+            print(self.tab2)
         else:
             print("Error")
          
