@@ -192,6 +192,12 @@ class Ui_MainWindow:
         self.Auto.setObjectName("Auto")
         self.Auto.setGeometry(40, 120, 158, 23)
         self.Auto.clicked.connect(self.auto_button_clicked)
+        
+        #Bouton Acquisition
+        self.Acquisition = QPushButton(self.centralwidget)
+        self.Acquisition.setObjectName("Auto")
+        self.Acquisition.setGeometry(40, 120, 158, 23)
+        self.Acquisition.clicked.connect(self.acquisition_button_clicked)
 
         #Bouton connexion
         self.Connexion_icon = QLabel(self.centralwidget)
@@ -270,6 +276,8 @@ class Ui_MainWindow:
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QApplication.translate("MainWindow", "MainWindow", None))
         self.Auto.setText(QApplication.translate("MainWindow", "Automatique", None))
+        self.Auto.setText(QApplication.translate("MainWindow", "Acquisition", None))
+        
         # self.Connexion.setText(QApplication.translate("MainWindow", "", None))
 
     def backward_button_pressed(self):
@@ -333,12 +341,13 @@ class Ui_MainWindow:
     def auto_button_clicked(self):
         self.marty.auto_controller(self.NBMarty)
         
+    def acquisition_button_clicked(self):
+        self.marty.auto_controller(self.NBMarty)
 
     def connexion_button_clicked(self):
         self.marty.connect_controller()
         self.Connexion_icon.setPixmap(QPixmap("./Interface/connexion_on.png"))
-        self.isConnected = True
-        
+        self.isConnected = True  
         
     def deconnexion_button_clicked(self):
         self.marty.disconnect_controller()
